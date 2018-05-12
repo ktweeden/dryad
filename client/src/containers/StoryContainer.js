@@ -5,7 +5,8 @@ class StoryContainer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            message: ''
+            title: '',
+            storySections: []
         }
     }
 
@@ -14,12 +15,12 @@ class StoryContainer extends Component {
         return <h1>{this.state.message}</h1>
     }
 
-    componentDidMount() {
-        const messageRequest = new Request('http://localhost:3001')
-        messageRequest.get(messageResponse => {
-            this.setState({ message: messageResponse.message})  
-        })
-    }
+    // componentDidMount() {
+    //     const storyRequest = new Request('http://localhost:3001/story')
+    //     storyRequest.get(storyResponse => {
+    //         this.setState({ title: story.title})  
+    //     })
+    // }
 }
 
 export default StoryContainer

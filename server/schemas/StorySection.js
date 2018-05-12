@@ -7,4 +7,7 @@ const StorySectionSchema = mongoose.Schema({
     text: String
 })
 
-module.exports = StorySectionSchema
+const StorySection = mongoose.model('StorySection', StorySectionSchema)
+
+
+module.exports = StorySection

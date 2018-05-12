@@ -2,7 +2,7 @@ const express = require('express')
 const parser = require('body-parser')
 const mongoose = require('mongoose')
 const server = express()
-const createIndexrouter = require('./controllers/Index.js')
+const indexRouter = require('./controllers/Index.js')
 
 server.use(parser.json())
 server.use(express.static('client/public'))
@@ -19,7 +19,7 @@ function initialiseDbConnection(onDbInitialise) {
     db.on('error', console.error.bind(console, 'connection error:'))
     db.once('open', onDbInitialise)
 
-    server.use(createIndexrouter(db))
+    server.use(indexRouter)
 }
 
 server.get('/', function(req, res) {

@@ -5,4 +5,6 @@ const StorySchema = mongoose.Schema({
     startingSection: { type: mongoose.Schema.Types.ObjectId, ref: 'StorySection' }
 })
 
-module.exports = StorySchema
+const Story = mongoose.model('Story', StorySchema)
+
+module.exports = Story
