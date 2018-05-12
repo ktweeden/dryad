@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Request from '../helpers/request.js'
+import StoryTitle from '../components/StoryTitle.js'
 
 class StoryContainer extends Component {
     constructor(props) {
@@ -12,15 +13,17 @@ class StoryContainer extends Component {
 
 
     render() {
-        return <h1>{this.state.message}</h1>
+        return (
+            <StoryTitle title={this.state.title} />
+        )
     }
 
-    // componentDidMount() {
-    //     const storyRequest = new Request('http://localhost:3001/story')
-    //     storyRequest.get(storyResponse => {
-    //         this.setState({ title: story.title})  
-    //     })
-    // }
+    componentDidMount() {
+        const storyRequest = new Request('http://localhost:3001/story')
+        storyRequest.get(storyResponse => {
+            this.setState({ title: storyResponse[0].title})  
+        })
+    }
 }
 
 export default StoryContainer
