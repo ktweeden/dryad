@@ -6,6 +6,12 @@ const server = express();
 server.use(parser.json());
 server.use(express.static('client/public'));
 
+server.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 function initialiseDbConnection(onDbInitialise) {
     mongoose.connect('mongodb://localhost:27017/dryad');
     const db = mongoose.connection;
@@ -13,7 +19,13 @@ function initialiseDbConnection(onDbInitialise) {
     db.once('open', onDbInitialise);
 }
 
-initialiseDbConnection(()=> {
+server.get('/', function(req, res) {
+    res.json({message: 'hello'})
+})
+
+
+
+initialiseDbConnection(() => {
     server.listen(3001, function () {
         console.log('Listening on port 3001');
     });
