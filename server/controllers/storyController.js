@@ -28,6 +28,20 @@ storyRouter.post('/', function (req, res) {
     });
 });
 
+storyRouter.delete('/', function(req, res) {
+    Story.deleteMany(function(err) {
+        if (err) {
+            console.error(err);
+            res.status(500);
+            res.send();
+            return;
+        };
+        console.log('Everything has gone');
+        res.status(204);
+        res.send();
+    })
+})
+
 
     
 module.exports = storyRouter
