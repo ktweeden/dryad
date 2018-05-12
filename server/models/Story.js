@@ -1,6 +1,6 @@
-import mongoose from 'mongoose'
-import StorySchema from '../schemas/Story'
+const mongoose = require ('mongoose')
+const StorySchema = require ('../schemas/Story')
 
 const Story = mongoose.model('Story', StorySchema)
 
-export default Story
+module.exports =  Story
