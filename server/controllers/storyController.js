@@ -1,6 +1,7 @@
 const express = require('express')
 const storyRouter = new express.Router()
 const Story = require('../schemas/Story.js')
+const StorySection = require('../schemas/StorySection.js')
 
 storyRouter.get('/', function(req, res) {
     Story.find(function(err, stories) {
@@ -16,6 +17,30 @@ storyRouter.get('/', function(req, res) {
 
 storyRouter.get('/:id', function(req, res) {
     Story.findById(req.params.id, function(err, story) {
+        if (err) {
+            console.error(err);
+            res.status(500);
+            res.send();
+            return;
+        }
+        res.json(story)
+    })
+})
+
+storyRouter.put('/:id', function(req, res) {
+    Story.findByIdAndUpdate(req.params.id, {startingSection: req.body.id}, function(err, story) {
+        if (err) {
+            console.error(err);
+            res.status(500);
+            res.send();
+            return;
+        }
+        res.json(story)
+    })
+})
+
+storyRouter.get('/:id/sections', function(req, res) {
+    StorySection.find({story: req.params.id}, function(err, stories) {
         if (err) {
             console.error(err);
             res.status(500);
