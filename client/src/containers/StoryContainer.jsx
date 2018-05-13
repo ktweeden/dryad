@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import Request from '../helpers/request.js'
-import StoryTitle from '../components/StoryTitle.js'
-import StorySection from '../components/StorySection.js'
-import AddSectionForm from '../components/AddSectionForm.js'
+import StoryTitle from '../components/StoryTitle.jsx'
+import StorySection from '../components/StorySection.jsx'
+import AddSectionForm from '../components/AddSectionForm.jsx'
 
 class StoryContainer extends Component {
     constructor(props) {
