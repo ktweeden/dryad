@@ -9,9 +9,11 @@ class StoryContainer extends Component {
         super(props)
         this.state = {
             title: '',
-            storyId: null,
+            storyId: '',
             storySections: []
         }
+
+        this.handleAddSectionSubmit = this.handleAddSectionSubmit.bind(this)
     }
 
 
@@ -28,7 +30,7 @@ class StoryContainer extends Component {
                 <div className="section-container">
                     {sectionNodes}
                 </div>
-                <AddSectionForm storyId={this.state.storyId} />
+                <AddSectionForm handleFormSubmit={this.handleAddSectionSubmit} />
             </React.Fragment>
         )
     }
@@ -40,6 +42,20 @@ class StoryContainer extends Component {
             this.setState({ title: story.title, storyId: story._id})
             const sectionsRequest = new Request(`http://localhost:3001/story/${story._id}/sections`)
             sectionsRequest.get(sectionsResponse => this.setState({storySections: sectionsResponse}))
+        })
+    }
+
+    handleAddSectionSubmit(storyText) {
+        const newSection = {
+            story: this.state.storyId,
+            depth: this.state.storySections.length+1,
+            text: storyText
+        }
+        const addSectionRequest = new Request('http://localhost:3001/story_section')
+        addSectionRequest.post(newSection, (section) => {
+            console.log('new section is', newSection)
+            const updatedSections = [...this.state.storySections, section]
+            this.setState({storySections: updatedSections})
         })
     }
 }

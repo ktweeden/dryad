@@ -34,6 +34,24 @@ class Request {
             request.send()
         }
     }
+
+    post(dataToSend, onComplete) {
+        const request = this.createRequest('POST')
+        request.setRequestHeader('Content-Type', 'application/json');
+        if (!request) {
+            console.error('CORS not supported');
+        }
+        else {
+            request.onload = function () {
+                console.log('onloading')
+                if (request.status >= 300) return;
+                const response = JSON.parse(request.responseText);
+                onComplete(response);
+            }
+            request.send(JSON.stringify(dataToSend))
+        }
+    }
+    
 }
 
 export default Request

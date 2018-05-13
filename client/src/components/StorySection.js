@@ -1,8 +1,7 @@
-import React, {Component} from 'react'
+import React from 'react'
 
 
 const StorySection = function(props) {
-    console.log(props)
     return (
         <div>
             <p>{props.section.text}</p>
