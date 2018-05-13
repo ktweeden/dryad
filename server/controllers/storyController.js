@@ -47,7 +47,8 @@ storyRouter.get('/:id/sections', function(req, res) {
             res.send();
             return;
         }
-        res.json(story)
+        const orderedStories = orderStoriesByDepth(stories)
+        res.json(orderedStories)
     })
 })
 
@@ -79,6 +80,20 @@ storyRouter.delete('/', function(req, res) {
     })
 })
 
+const orderStoriesByDepth = function(storyArray) {
+    const sortedStories = storyArray.sort((storya, storyb) => {
+        if (storya.depth > storyb.depth) {
+            return 1
+        }
+        else if (storya.depth < storyb.depth) {
+            return -1
+        }
+        else {
+            return 0
+        }
+    })
+    return sortedStories
+}
 
     
 module.exports = storyRouter
