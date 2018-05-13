@@ -49,7 +49,7 @@ class StoryContainer extends Component {
     handleAddSectionSubmit(storyText) {
         const newSection = {
             story: this.state.storyId,
-            depth: this.state.storySections.length+1,
+            depth: this.state.storySections.length,
             text: storyText
         }
         const addSectionRequest = new Request('http://localhost:3001/story_section')
