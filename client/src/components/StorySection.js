@@ -2,8 +2,11 @@ import React, {Component} from 'react'
 
 
 const StorySection = function(props) {
+    console.log(props)
     return (
-        <p>{props.message}</p>
+        <div>
+            <p>{props.section.text}</p>
+        </div>
     )
 }
 
