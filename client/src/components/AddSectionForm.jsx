@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import './AddSectionForm.css'
 
 class AddSectionForm extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class AddSectionForm extends Component {
                 <textarea cols="50" rows="10" 
                     value={this.state.storyText} 
                     onChange={this.handleChange}/>
-                <input type="submit" value="Add to story" />
+                <input className="submit-button" type="submit" value="Add to story" />
             </form>
         )
     }
@@ -29,6 +30,7 @@ class AddSectionForm extends Component {
     handleFormSubmit(event) {
         event.preventDefault()
         this.props.handleFormSubmit(this.state.storyText)
+        this.setState({storyText: ''})
     }
 }
 

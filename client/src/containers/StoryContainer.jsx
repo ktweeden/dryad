@@ -3,6 +3,7 @@ import Request from '../helpers/request.js'
 import StoryTitle from '../components/StoryTitle.jsx'
 import StorySection from '../components/StorySection.jsx'
 import AddSectionForm from '../components/AddSectionForm.jsx'
+import './StoryContainer.css'
 
 class StoryContainer extends Component {
     constructor(props) {
@@ -25,13 +26,13 @@ class StoryContainer extends Component {
             />
         })
         return (
-            <React.Fragment>
+            <section className="story-container">
                 <StoryTitle title={this.state.title} />
-                <div className="section-container">
+                <div>
                     {sectionNodes}
                 </div>
                 <AddSectionForm handleFormSubmit={this.handleAddSectionSubmit} />
-            </React.Fragment>
+            </section>
         )
     }
 
