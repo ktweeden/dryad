@@ -28,7 +28,7 @@ storyRouter.get('/:id', function(req, res) {
 })
 
 storyRouter.put('/:id', function(req, res) {
-    Story.findByIdAndUpdate(req.params.id, {startingSection: req.body.id}, function(err, story) {
+    Story.findByIdAndUpdate(req.params.id, req.body, function(err, story) {
         if (err) {
             console.error(err);
             res.status(500);
