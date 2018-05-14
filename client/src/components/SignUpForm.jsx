@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {auth} from '../firebase/index.js'
 
 class SignUpForm extends Component {
 
@@ -8,6 +9,8 @@ class SignUpForm extends Component {
         this.state = {
             ...INITIAL_STATE
         }
+
+        this.formSubmit = this.formSubmit.bind(this)
     }
 
     render() {
@@ -16,17 +19,17 @@ class SignUpForm extends Component {
             email,
             passwordOne,
             passwordTwo,
-            error,
-        } = this.state;
+            error
+        } = this.state
 
         const isInvalid =
             passwordOne !== passwordTwo ||
             passwordOne === '' ||
             email === '' ||
-            username === '';
+            username === ''
 
         return (
-            <form onSubmit={this.props.formSubmit}>
+            <form onSubmit={this.formSubmit}>
                 <input type="text" 
                     value={username}
                     onChange={event => this.setState({username: event.target.value})}
@@ -52,6 +55,18 @@ class SignUpForm extends Component {
                 {error && <p>{error.message}</p>}
             </form>
         )
+    }
+
+    formSubmit(event) {
+        event.preventDefault()
+        auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.passwordOne)
+            .then(authUser => {
+                this.setState(() => ({ ...INITIAL_STATE }))
+                this.props.history.goBack()
+            })
+            .catch(error => {
+                this.setState({error: error})
+            })
     }
 }
 

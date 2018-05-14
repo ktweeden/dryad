@@ -1,13 +1,14 @@
 import React from 'react'
 import SignUpForm from './SignUpForm.jsx'
+import {withRouter} from 'react-router-dom'
 
-const SignUpPage = function (props) {
+const SignUpPage = function ({history}) {
     return (
         <React.Fragment>
             <h2>Sign Up</h2>
-            <SignUpForm />
+            <SignUpForm history={history} />
         </React.Fragment>
     )
 }
 
-export default SignUpPage
+export default withRouter(SignUpPage)
