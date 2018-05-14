@@ -1,0 +1,12 @@
+button {
+    border: 1px solid gray;
+    font-size: 1rem;
+    font-weight: 300;
+    background-color: transparent;
+}
+
+button:hover {
+    background-color: white;
+    border: 1px solid white;
+    transition: 0.3s;
+}

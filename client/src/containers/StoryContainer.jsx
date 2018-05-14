@@ -15,6 +15,7 @@ class StoryContainer extends Component {
         }
 
         this.handleAddSectionSubmit = this.handleAddSectionSubmit.bind(this)
+        this.handleForkButtonClick = this.handleForkButtonClick.bind(this)
     }
 
 
@@ -23,6 +24,7 @@ class StoryContainer extends Component {
             return <StorySection 
             section={this.state.storySections[index]} 
             key={index}
+            handleForkButtonClick={this.handleForkButtonClick}
             />
         })
         return (
@@ -58,6 +60,12 @@ class StoryContainer extends Component {
             const updatedSections = [...this.state.storySections, section]
             this.setState({storySections: updatedSections})
         })
+    }
+
+    handleForkButtonClick(event) {
+        const index = event.target.value
+        console.log(index);
+        
     }
 }
 

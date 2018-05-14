@@ -1,0 +1,14 @@
+.action-bar {
+    /* display: none; */
+    max-width: 100%;
+    position: relative;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.2rem;
+    background-color: rgba(214, 214, 230, 0.6);
+}
+
+.action-bar button {
+    
+}
