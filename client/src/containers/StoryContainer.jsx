@@ -63,8 +63,9 @@ class StoryContainer extends Component {
     }
 
     handleForkButtonClick(event) {
-        const index = event.target.value
-        console.log(index);
+        const index = 1 + Number(event.target.value)
+        const newSectionArray = [...this.state.storySections].splice(0, index)
+        this.setState({storySections: newSectionArray})
         
     }
 }
