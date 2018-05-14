@@ -5,9 +5,7 @@ import * as routes from '../constants/routes';
 
 const SignUpLink = function(props) {
     return (
-        <p>Don't have and account?
-            <Link to={routes.SIGN_UP}>Sign Up</Link>
-        </p>
+        <p>Don't have and account? <Link to={routes.SIGN_UP}>Sign Up</Link></p>
     )
 }
 

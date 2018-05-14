@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {auth} from '../firebase/index.js'
+import {auth} from '../firebase'
 
 class SignUpForm extends Component {
 
