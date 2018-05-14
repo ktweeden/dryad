@@ -29,14 +29,14 @@ class SignInForm extends Component {
                     <input type="text"
                         value={email}
                         onChange={event => this.setState({ email: event.target.value })}
-                        placeHolder="Email Address"
+                        placeholder="Email Address"
                     />
-                    <input type="text"
+                    <input type="password"
                         value={password}
                         onChange={event => this.setState({ password: event.target.value })}
-                        placeHolder="Password"
+                        placeholder="Password"
                     />
-                    <button type="submit" disabled={isInvalid}>Sign Up</button>
+                    <button type="submit" disabled={isInvalid}>Sign In</button>
 
                     {error && <p>{error.message}</p>}
                 </form>
@@ -47,7 +47,7 @@ class SignInForm extends Component {
 
     formSubmit(event) {
         event.preventDefault()
-        auth.doSignInWithEmailAndPassword(this.state.email, this.state.passwordOne)
+        auth.doSignInWithEmailAndPassword(this.state.email, this.state.password)
             .then(() => {
                 this.setState(() => ({ ...INITIAL_STATE }))
                 this.props.history.goBack()

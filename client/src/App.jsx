@@ -5,11 +5,13 @@ import NavBar from './components/NavBar.jsx'
 import SignInPage from './components/SignInPage.jsx'
 import SignUpPage from './components/SignUpPage.jsx'
 import AccountPage from './components/AccountPage.jsx'
-import * as routes from './constants/routes';
+import * as routes from './constants/routes'
+import withAuthentication from './withAuthentication.jsx'
 import './App.css'
 
-class App extends Component {
-  render() {
+
+
+const App = function(props) {
     return (
       <Router>
         <React.Fragment>
@@ -20,9 +22,8 @@ class App extends Component {
           <Route exact path={routes.ACCOUNT} component={() => < AccountPage />} />
         </React.Fragment>
       </Router>
-    );
-  }
+    )
 }
 
-export default App;
+export default withAuthentication(App);
 

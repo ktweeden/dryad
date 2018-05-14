@@ -1,15 +1,24 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import SignOutButton from './SignOutButton.jsx'
+import AuthUserContext from './AuthUserContext.jsx';
 import './NavBar.css'
 import * as routes from '../constants/routes';
 
-const NavBar = function({authUser}) {
+const NavBar = function() {
     return (
-        <nav className="nav-bar">
-            <h1>Dryad</h1>
-            { authUser ? <NavigationAuth /> : <NavigationNonAuth /> }
-        </nav>
+        <AuthUserContext.Consumer> 
+        {
+            authUser => {
+                return (
+                    <nav className="nav-bar">
+                        <h1>Dryad</h1>
+                        {authUser ? <NavigationAuth /> : <NavigationNonAuth />}
+                    </nav>
+                )
+            }
+        }
+        </ AuthUserContext.Consumer>
     )
 }
 
