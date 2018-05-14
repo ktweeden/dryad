@@ -49,8 +49,10 @@ class StoryContainer extends Component {
     }
 
     handleAddSectionSubmit(storyText) {
+        const previousSectionId = this.state.storySections[this.state.storySections.length -1]._id
         const newSection = {
             story: this.state.storyId,
+            previousSection: previousSectionId,
             depth: this.state.storySections.length,
             text: storyText
         }
