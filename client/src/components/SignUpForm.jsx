@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {auth} from '../firebase'
+import Request from '../helpers/request'
 
 class SignUpForm extends Component {
 
@@ -32,8 +33,8 @@ class SignUpForm extends Component {
             <form onSubmit={this.formSubmit}>
                 <input type="text" 
                     value={username}
-                    onChange={event => this.setState({username: event.target.value})}
-                    placeholder="Full Name"
+                    onChange={event => this.setState({ username: event.target.value})}
+                    placeholder="Username"
                 />
                 <input type="text"
                     value={email}
@@ -61,8 +62,12 @@ class SignUpForm extends Component {
         event.preventDefault()
         auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.passwordOne)
             .then(authUser => {
-                this.setState(() => ({ ...INITIAL_STATE }))
-                this.props.history.goBack()
+                console.log('authUser is: ', authUser)
+                const addUserRequest = new Request('http://localhost:3001/user')
+                addUserRequest.post({ UID: authUser.user.uid, userName: this.state.username}, (user) => {
+                    this.setState(() => ({ ...INITIAL_STATE }))
+                    this.props.history.goBack()
+                })
             })
             .catch(error => {
                 this.setState({error: error})

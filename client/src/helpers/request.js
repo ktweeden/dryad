@@ -36,6 +36,8 @@ class Request {
     }
 
     post(dataToSend, onComplete) {
+        console.log(dataToSend);
+        
         const request = this.createRequest('POST')
         request.setRequestHeader('Content-Type', 'application/json');
         if (!request) {
