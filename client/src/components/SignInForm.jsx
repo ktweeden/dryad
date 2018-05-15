@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { auth } from '../firebase'
 import SignUpLink from './SignUpLink.jsx'
+import './SignUpInForm.css'
 
 class SignInForm extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class SignInForm extends Component {
             email === ''
 
         return (
-            <React.Fragment>
+            <div className="sign-up-in-form">
                 <form onSubmit={this.formSubmit}>
                     <input type="text"
                         value={email}
@@ -41,7 +42,7 @@ class SignInForm extends Component {
                     {error && <p>{error.message}</p>}
                 </form>
                 <SignUpLink />
-            </React.Fragment>
+            </div>
         )
     }
 

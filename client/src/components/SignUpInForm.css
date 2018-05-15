@@ -1,0 +1,21 @@
+.sign-up-in-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-up-in-form input {
+  margin: 0.5rem 0;
+  width: 50vw;
+  font-size: 1rem;
+  font-weight: 200;
+  padding: 0.3rem;
+}
+
+.sign-up-in-form button {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 200;
+  padding: 0.3rem;
+} 

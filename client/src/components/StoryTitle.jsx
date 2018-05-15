@@ -3,7 +3,7 @@ import './StoryTitle.css'
 
 const StoryTitle = function(props) {
     return (
-        <h2>{props.title}</h2>
+        <h2 className="story-title">{props.title}</h2>
     )
 }
 

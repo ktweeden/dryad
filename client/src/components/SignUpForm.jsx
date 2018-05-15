@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {auth} from '../firebase'
 import Request from '../helpers/request'
+import './SignUpInForm.css'
 
 class SignUpForm extends Component {
 
@@ -30,31 +31,33 @@ class SignUpForm extends Component {
             username === ''
 
         return (
-            <form onSubmit={this.formSubmit}>
-                <input type="text" 
-                    value={username}
-                    onChange={event => this.setState({ username: event.target.value})}
-                    placeholder="Username"
-                />
-                <input type="text"
-                    value={email}
-                    onChange={event => this.setState({ email: event.target.value })}
-                    placeholder="Email Address"
-                />
-                <input type="password"
-                    value={passwordOne}
-                    onChange={event => this.setState({ passwordOne: event.target.value })}
-                    placeholder="Password"
-                />
-                <input type="password"
-                    value={passwordTwo}
-                    onChange={event => this.setState({ passwordTwo: event.target.value })}
-                    placeholder="Confirm Password"
-                />
-                <button type="submit" disabled={isInvalid}>Sign Up</button>
+            <div className="sign-up-in-form">
+                <form onSubmit={this.formSubmit}>
+                    <input type="text" 
+                        value={username}
+                        onChange={event => this.setState({ username: event.target.value})}
+                        placeholder="Username"
+                    />
+                    <input type="text"
+                        value={email}
+                        onChange={event => this.setState({ email: event.target.value })}
+                        placeholder="Email Address"
+                    />
+                    <input type="password"
+                        value={passwordOne}
+                        onChange={event => this.setState({ passwordOne: event.target.value })}
+                        placeholder="Password"
+                    />
+                    <input type="password"
+                        value={passwordTwo}
+                        onChange={event => this.setState({ passwordTwo: event.target.value })}
+                        placeholder="Confirm Password"
+                    />
+                    <button type="submit" disabled={isInvalid}>Sign Up</button>
 
-                {error && <p>{error.message}</p>}
-            </form>
+                    {error && <p>{error.message}</p>}
+                </form>
+            </div>
         )
     }
 
