@@ -1,3 +1,8 @@
 .story-container {
     margin: 1rem 15vw;
 }
+
+.start-editing {
+    margin-top: 1.5rem;
+    text-align: right;
+}

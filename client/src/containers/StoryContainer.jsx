@@ -53,7 +53,7 @@ class StoryContainer extends Component {
                 />}
                 {edit ? 
                 <AddSectionForm handleFormSubmit={this.handleAddSectionSubmit} /> :
-                <Button buttonText={`Add to ${title}`} onButtonClick={this.handleBeginEditClick}/>}
+                <p className="start-editing">Don't like the sound of the previews? <Button buttonText={`Add to ${title}`} onButtonClick={this.handleBeginEditClick}/></p>}
             </section>
         )
     }
