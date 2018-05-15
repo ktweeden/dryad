@@ -21,9 +21,10 @@ class StoryContainer extends Component {
         }
 
         this.handleAddSectionSubmit = this.handleAddSectionSubmit.bind(this)
-        this.handleForkButtonClick = this.handleForkButtonClick.bind(this)
+        // this.handleForkButtonClick = this.handleForkButtonClick.bind(this)
         this.handlePreviewClick = this.handlePreviewClick.bind(this)
         this.handleBeginEditClick = this.handleBeginEditClick.bind(this)
+        this.handleSectionClick = this.handleSectionClick.bind(this)
     }
 
 
@@ -38,13 +39,13 @@ class StoryContainer extends Component {
         } = this.state
 
         const sectionNodes = sectionsToRender.map(section => {
-            return <StorySection section={section}/>
+            return <StorySection section={section} key={section._id} handleSectionClick={this.handleSectionClick}/>
         })
 
         return (
             <section className="story-container">
                 <StoryTitle title={title} />
-                <StorySection section={startingSection}/>
+                <StorySection section={startingSection} handleSectionClick={this.handleSectionClick}/>
                 {sectionNodes}
                 {(!edit && storySections[currentSection]) && <StorySectionTier 
                 sectionArray={storySections[currentSection]} 
@@ -93,11 +94,17 @@ class StoryContainer extends Component {
         })
     }
 
-    handleForkButtonClick(event) {
-        const index = 1 + Number(event.target.value)
-        const newSectionArray = [...this.state.storySections].splice(0, index)
-        this.setState({storySections: newSectionArray})
+    handleSectionClick(section) {
+        const updatedSectionsToRender = [... this.state.sectionsToRender]
+        updatedSectionsToRender.splice(section.depth)
+        this.setState({sectionsToRender: updatedSectionsToRender, currentSection: section._id})
     }
+
+    // handleForkButtonClick(event) {
+    //     const index = 1 + Number(event.target.value)
+    //     const newSectionArray = [...this.state.storySections].splice(0, index)
+    //     this.setState({storySections: newSectionArray})
+    // }
 
     handleBeginEditClick(event) {
         this.setState({edit: true})

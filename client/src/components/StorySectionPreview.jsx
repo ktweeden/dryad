@@ -17,8 +17,6 @@ class StorySectionPreview extends Component {
   }
 
   handleClick() {
-    console.log('click');
-    
     this.props.handlePreviewClick(this.props.section.previousSection, this.props.index)
   }
 }
