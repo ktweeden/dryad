@@ -1,8 +1,23 @@
 .nav-bar {
     text-align: center;
-    margin: 1.5rem 0;
+    margin: 1.5rem 5rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: aliceblue;
+}
+
+.nav-bar h1 {
+    align-self: center;
+    justify-self: center;
 }
 
 ul {
+    align-self: flex-end;
     list-style-type: none;
+    display: flex;
+}
+
+li {
+    margin: 0 0.2rem;
 }

@@ -3,6 +3,7 @@ import Request from '../helpers/request.js'
 import StoryTitle from '../components/StoryTitle.jsx'
 import StorySection from '../components/StorySection.jsx'
 import AddSectionForm from '../components/AddSectionForm.jsx'
+import Button from '../components/Button.jsx'
 import StorySectionTier from '../components/StorySectionTier.jsx'
 import './StoryContainer.css'
 
@@ -22,11 +23,13 @@ class StoryContainer extends Component {
         this.handleAddSectionSubmit = this.handleAddSectionSubmit.bind(this)
         this.handleForkButtonClick = this.handleForkButtonClick.bind(this)
         this.handlePreviewClick = this.handlePreviewClick.bind(this)
+        this.handleBeginEditClick = this.handleBeginEditClick.bind(this)
     }
 
 
     render() {
         const {
+            title,
             storySections, 
             startingSection,
             edit,
@@ -40,15 +43,17 @@ class StoryContainer extends Component {
 
         return (
             <section className="story-container">
-                <StoryTitle title={this.state.title} />
+                <StoryTitle title={title} />
                 <StorySection section={startingSection}/>
                 {sectionNodes}
-                {storySections[currentSection] && <StorySectionTier 
+                {(!edit && storySections[currentSection]) && <StorySectionTier 
                 sectionArray={storySections[currentSection]} 
                 handlePreviewClick={this.handlePreviewClick}
                 updateCurrentSection={this.updateCurrentSection}
                 />}
-                {edit && <AddSectionForm handleFormSubmit={this.handleAddSectionSubmit} />}
+                {edit ? 
+                <AddSectionForm handleFormSubmit={this.handleAddSectionSubmit} /> :
+                <Button buttonText={`Add to ${title}`} onButtonClick={this.handleBeginEditClick}/>}
             </section>
         )
     }
@@ -68,7 +73,7 @@ class StoryContainer extends Component {
     }
 
     handleAddSectionSubmit(storyText) {
-        const previousSectionId = this.state.storySections[this.state.storySections.length -1]._id
+        const previousSectionId = this.state.currentSection
         const newSection = {
             story: this.state.storyId,
             previousSection: previousSectionId,
@@ -77,9 +82,17 @@ class StoryContainer extends Component {
         }
         const addSectionRequest = new Request('http://localhost:3001/story_section')
         addSectionRequest.post(newSection, (section) => {
-            console.log('new section is', newSection)
-            const updatedSections = [...this.state.storySections, section]
-            this.setState({storySections: updatedSections})
+            // console.log('new section is', newSection)
+            // const updatedSections = [...this.state.storySections, section]
+            // this.setState({storySections: updatedSections})
+            const updatedSectionsToRender = [...this.state.sectionsToRender, newSection]
+            const updatedStoryTree = {...this.state.storySections}
+            updatedStoryTree[newSection._id] = []
+            updatedStoryTree[newSection.previousSection].push(newSection)
+            this.setState({ 
+                storySections: updatedStoryTree, 
+                sectionsToRender: updatedSectionsToRender
+            })
         })
     }
 
@@ -87,6 +100,10 @@ class StoryContainer extends Component {
         const index = 1 + Number(event.target.value)
         const newSectionArray = [...this.state.storySections].splice(0, index)
         this.setState({storySections: newSectionArray})
+    }
+
+    handleBeginEditClick(event) {
+        this.setState({edit: true})
     }
 
     handlePreviewClick(key, arrayIndex) {

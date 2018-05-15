@@ -12,8 +12,8 @@ const NavBar = function() {
       authUser => {
         return (
           <nav className="nav-bar">
-          <h1>Dryad</h1>
-          {authUser ? <NavigationAuth /> : <NavigationNonAuth />}
+            <h1>Dryad</h1>
+            {authUser ? <NavigationAuth /> : <NavigationNonAuth />}
           </nav>
         )
       }
