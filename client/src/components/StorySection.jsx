@@ -7,7 +7,7 @@ const StorySection = function(props) {
     return (
         <div className="section-container">
             <p>{props.section.text}</p>
-            <SectionActionBar onForkClick={props.handleForkButtonClick} index={props.section.depth}/>
+            {props.handleForkButtonClick && <SectionActionBar onForkClick={props.handleForkButtonClick} index={props.section.depth}/>}
         </div>
     )
 }

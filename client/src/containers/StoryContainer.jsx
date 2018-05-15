@@ -11,7 +11,8 @@ class StoryContainer extends Component {
         this.state = {
             title: '',
             storyId: '',
-            storySections: []
+            startingSection: {},
+            storySections: {}
         }
 
         this.handleAddSectionSubmit = this.handleAddSectionSubmit.bind(this)
@@ -20,29 +21,32 @@ class StoryContainer extends Component {
 
 
     render() {
-        const sectionNodes = this.state.storySections.map((section, index) => {
-            return <StorySection 
-            section={this.state.storySections[index]} 
-            key={index}
-            handleForkButtonClick={this.handleForkButtonClick}
-            />
-        })
+        // const sectionNodes = this.state.storySections.map((section, index) => {
+        //     return <StorySection 
+        //     section={this.state.storySections[index]} 
+        //     key={index}
+        //     handleForkButtonClick={this.handleForkButtonClick}
+        //     />
+        // })
+
+        const {
+            storySections, 
+            startingSection} = this.state
         return (
             <section className="story-container">
                 <StoryTitle title={this.state.title} />
-                <div>
-                    {sectionNodes}
-                </div>
+                <StorySection section={startingSection}/>
+                {/* if this.state.storyTree[this.state.startingSection] != null
+                    render <StorySectionTier sectionArray=[this.state.storyTree[this.state.startingSection]]> */}
                 <AddSectionForm handleFormSubmit={this.handleAddSectionSubmit} />
             </section>
         )
     }
 
     componentDidMount() {
-        const storyRequest = new Request('http://localhost:3001/story')
-        storyRequest.get(storyResponse => {
-            const story = storyResponse[0]
-            this.setState({ title: story.title, storyId: story._id})
+        const storyRequest = new Request('http://localhost:3001/story/5af836d8727a8a89b6efe8a1')
+        storyRequest.get(story => {
+            this.setState({ title: story.title, storyId: story._id, startingSection: story.startingSection})
             const sectionsRequest = new Request(`http://localhost:3001/story/${story._id}/sections`)
             sectionsRequest.get(sectionsResponse => this.setState({storySections: sectionsResponse}))
         })
