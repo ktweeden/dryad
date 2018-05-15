@@ -13,33 +13,42 @@ class StoryContainer extends Component {
             title: '',
             storyId: '',
             startingSection: {},
-            storySections: {}
+            storySections: {},
+            currentSection: '',
+            edit: false,
+            sectionsToRender: []
         }
 
         this.handleAddSectionSubmit = this.handleAddSectionSubmit.bind(this)
         this.handleForkButtonClick = this.handleForkButtonClick.bind(this)
+        this.handlePreviewClick = this.handlePreviewClick.bind(this)
     }
 
 
     render() {
-        // const sectionNodes = this.state.storySections.map((section, index) => {
-        //     return <StorySection 
-        //     section={this.state.storySections[index]} 
-        //     key={index}
-        //     handleForkButtonClick={this.handleForkButtonClick}
-        //     />
-        // })
-
         const {
             storySections, 
-            startingSection} = this.state
+            startingSection,
+            edit,
+            currentSection,
+            sectionsToRender
+        } = this.state
+
+        const sectionNodes = sectionsToRender.map(section => {
+            return <StorySection section={section}/>
+        })
 
         return (
             <section className="story-container">
                 <StoryTitle title={this.state.title} />
                 <StorySection section={startingSection}/>
-                {storySections[startingSection._id] && <StorySectionTier sectionArray={storySections[startingSection._id]} />}
-                <AddSectionForm handleFormSubmit={this.handleAddSectionSubmit} />
+                {sectionNodes}
+                {storySections[currentSection] && <StorySectionTier 
+                sectionArray={storySections[currentSection]} 
+                handlePreviewClick={this.handlePreviewClick}
+                updateCurrentSection={this.updateCurrentSection}
+                />}
+                {edit && <AddSectionForm handleFormSubmit={this.handleAddSectionSubmit} />}
             </section>
         )
     }
@@ -47,7 +56,12 @@ class StoryContainer extends Component {
     componentDidMount() {
         const storyRequest = new Request('http://localhost:3001/story/5af836d8727a8a89b6efe8a1')
         storyRequest.get(story => {
-            this.setState({ title: story.title, storyId: story._id, startingSection: story.startingSection})
+            this.setState({ 
+                title: story.title, 
+                storyId: story._id, 
+                startingSection: story.startingSection,
+                currentSection: story.startingSection._id
+            })
             const sectionsRequest = new Request(`http://localhost:3001/story/${story._id}/sections`)
             sectionsRequest.get(sectionsResponse => this.setState({storySections: sectionsResponse}))
         })
@@ -73,7 +87,15 @@ class StoryContainer extends Component {
         const index = 1 + Number(event.target.value)
         const newSectionArray = [...this.state.storySections].splice(0, index)
         this.setState({storySections: newSectionArray})
-        
+    }
+
+    handlePreviewClick(key, arrayIndex) {
+        const section = this.state.storySections[key][arrayIndex]
+        const updatedSectionsToRender = [...this.state.sectionsToRender, section]
+        this.setState({
+            sectionsToRender: updatedSectionsToRender,
+            currentSection: section._id
+        })
     }
 }
 

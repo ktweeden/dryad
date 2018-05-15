@@ -101,9 +101,7 @@ const createStoryTree = function(sectionArray) {
   const storyTree = {}
   
   console.dir(sectionArray[0])
-  sectionArray.forEach(sectionObject => {
-    section = Object.assign({}, sectionObject._doc, {active: false})
-
+  sectionArray.forEach(section => {
     if (!storyTree[section._id]) {
       storyTree[section._id] = []
     }
