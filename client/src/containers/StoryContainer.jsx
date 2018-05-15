@@ -3,6 +3,7 @@ import Request from '../helpers/request.js'
 import StoryTitle from '../components/StoryTitle.jsx'
 import StorySection from '../components/StorySection.jsx'
 import AddSectionForm from '../components/AddSectionForm.jsx'
+import StorySectionTier from '../components/StorySectionTier.jsx'
 import './StoryContainer.css'
 
 class StoryContainer extends Component {
@@ -32,12 +33,12 @@ class StoryContainer extends Component {
         const {
             storySections, 
             startingSection} = this.state
+
         return (
             <section className="story-container">
                 <StoryTitle title={this.state.title} />
                 <StorySection section={startingSection}/>
-                {/* if this.state.storyTree[this.state.startingSection] != null
-                    render <StorySectionTier sectionArray=[this.state.storyTree[this.state.startingSection]]> */}
+                {storySections[startingSection._id] && <StorySectionTier sectionArray={storySections[startingSection._id]} />}
                 <AddSectionForm handleFormSubmit={this.handleAddSectionSubmit} />
             </section>
         )
