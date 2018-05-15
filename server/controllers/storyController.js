@@ -42,7 +42,9 @@ storyRouter.put('/:id', function(req, res) {
 })
 
 storyRouter.get('/:id/sections', function(req, res) {
-  StorySection.find({story: req.params.id}, function(err, stories) {
+  StorySection.find({story: req.params.id}).
+    populate('user', 'userName').
+  exec(function(err, stories) {
     if (err) {
       console.error(err);
       res.status(500);
@@ -81,21 +83,6 @@ storyRouter.delete('/', function(req, res) {
     res.send();
   })
 })
-
-const orderStoriesByDepth = function(storyArray) {
-  const sortedStories = storyArray.sort((storya, storyb) => {
-    if (storya.depth > storyb.depth) {
-      return 1
-    }
-    else if (storya.depth < storyb.depth) {
-      return -1
-    }
-    else {
-      return 0
-    }
-  })
-  return sortedStories
-}
 
 const createStoryTree = function(sectionArray) {
   const storyTree = {}

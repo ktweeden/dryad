@@ -1,6 +1,8 @@
 const express = require('express')
 const storySectionRouter = new express.Router()
 const StorySection = require('../schemas/StorySection.js')
+const User = require('../schemas/User.js')
+
 
 storySectionRouter.get('/', function (req, res) {
     StorySection.find(function (err, sections) {
@@ -23,6 +25,20 @@ storySectionRouter.get('/:id', function(req, res) {
             return;
         }
         res.json(storySection)
+    })
+})
+
+storySectionRouter.get('/user/:id', function (req, res) {
+    StorySection.find({user: req.params.id}).
+        populate('user', 'userName').
+        exec(function (err, sections) {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                res.send();
+                return;
+            }
+        res.json(sections)
     })
 })
 
