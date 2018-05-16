@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Request from '../helpers/request.js'
 import StorySection from './StorySection.jsx'
+import withAuthentication from '../withAuthentication.jsx'
 
 class AccountPage extends Component {
     constructor(props) {
@@ -29,6 +30,7 @@ class AccountPage extends Component {
 
 
     componentDidMount() {
+        console.log(this.context);
         const userRequest = new Request(`http://localhost:3001/user/${this.props.authUser.uid}`)
         userRequest.get(user => {            
             this.setState({username: user.userName})
@@ -43,4 +45,4 @@ class AccountPage extends Component {
 
 
 
-export default AccountPage
+export default withAuthentication(AccountPage)

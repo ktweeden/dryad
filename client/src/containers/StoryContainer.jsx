@@ -7,6 +7,7 @@ import './StoryContainer.css'
 import AuthUserContext from '../components/AuthUserContext.jsx'
 import EditWithAuth from '../components/EditWithAuth.jsx'
 import EditWithoutAuth from '../components/EditWithoutAuth.jsx'
+import withAuthentication from '../withAuthentication.jsx'
 
 class StoryContainer extends Component {
     constructor(props) {
@@ -42,34 +43,24 @@ class StoryContainer extends Component {
             return <StorySection section={section} key={section._id} handleSectionClick={this.handleSectionClick}/>
         })
 
-        return (
-            <AuthUserContext.Consumer> 
-                {
-                authuser => {
-                    console.log(authuser);
-                    
-                    return (
-                        <section className="story-container">
-                            <StoryTitle title={title} />
-                            <StorySection section={startingSection} handleSectionClick={this.handleSectionClick}/>
-                            {sectionNodes}
-                            {(!edit && storySections[currentSection]) && <StorySectionTier 
-                            sectionArray={storySections[currentSection]} 
-                            handlePreviewClick={this.handlePreviewClick}
-                            updateCurrentSection={this.updateCurrentSection}
-                            />}
-                            {authuser ? 
-                            <EditWithAuth 
-                                handleFormSubmit={this.handleAddSectionSubmit}
-                                title={title}
-                                onButtonClick={this.handleBeginEditClick}
-                                edit={this.state.edit}/> : 
-                            <EditWithoutAuth title={title}/>}
-                        </section>
-                    )
-                }
-            }
-            </AuthUserContext.Consumer> 
+        return (      
+            <section className="story-container">
+                <StoryTitle title={title} />
+                <StorySection section={startingSection} handleSectionClick={this.handleSectionClick}/>
+                {sectionNodes}
+                {(!edit && storySections[currentSection]) && <StorySectionTier 
+                sectionArray={storySections[currentSection]} 
+                handlePreviewClick={this.handlePreviewClick}
+                updateCurrentSection={this.updateCurrentSection}
+                />}
+                {this.props.authuser ? 
+                <EditWithAuth 
+                    handleFormSubmit={this.handleAddSectionSubmit}
+                    title={title}
+                    onButtonClick={this.handleBeginEditClick}
+                    edit={this.state.edit}/> : 
+                <EditWithoutAuth title={title}/>}
+            </section>
         )
     }
 
@@ -134,4 +125,4 @@ class StoryContainer extends Component {
     }
 }
 
-export default StoryContainer
+export default withAuthentication(StoryContainer)
