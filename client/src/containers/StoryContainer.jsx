@@ -6,6 +6,11 @@ import AddSectionForm from '../components/AddSectionForm.jsx'
 import Button from '../components/Button.jsx'
 import StorySectionTier from '../components/StorySectionTier.jsx'
 import './StoryContainer.css'
+import AuthUserContext from '../components/AuthUserContext.jsx'
+import { Link } from 'react-router-dom'
+import * as routes from '../constants/routes'
+import EditWithAuth from '../components/EditWithAuth.jsx'
+import EditWithoutAuth from '../components/EditWithoutAuth.jsx'
 
 class StoryContainer extends Component {
     constructor(props) {
@@ -21,7 +26,6 @@ class StoryContainer extends Component {
         }
 
         this.handleAddSectionSubmit = this.handleAddSectionSubmit.bind(this)
-        // this.handleForkButtonClick = this.handleForkButtonClick.bind(this)
         this.handlePreviewClick = this.handlePreviewClick.bind(this)
         this.handleBeginEditClick = this.handleBeginEditClick.bind(this)
         this.handleSectionClick = this.handleSectionClick.bind(this)
@@ -43,19 +47,30 @@ class StoryContainer extends Component {
         })
 
         return (
-            <section className="story-container">
-                <StoryTitle title={title} />
-                <StorySection section={startingSection} handleSectionClick={this.handleSectionClick}/>
-                {sectionNodes}
-                {(!edit && storySections[currentSection]) && <StorySectionTier 
-                sectionArray={storySections[currentSection]} 
-                handlePreviewClick={this.handlePreviewClick}
-                updateCurrentSection={this.updateCurrentSection}
-                />}
-                {edit ? 
-                <AddSectionForm handleFormSubmit={this.handleAddSectionSubmit} /> :
-                <p className="start-editing">Don't like the sound of the previews? <Button buttonText={`Add to ${title}`} onButtonClick={this.handleBeginEditClick}/></p>}
-            </section>
+            <AuthUserContext.Consumer> 
+                {
+                authuser => {
+                    return (
+                        <section className="story-container">
+                            <StoryTitle title={title} />
+                            <StorySection section={startingSection} handleSectionClick={this.handleSectionClick}/>
+                            {sectionNodes}
+                            {(!edit && storySections[currentSection]) && <StorySectionTier 
+                            sectionArray={storySections[currentSection]} 
+                            handlePreviewClick={this.handlePreviewClick}
+                            updateCurrentSection={this.updateCurrentSection}
+                            />}
+                            {authuser ? 
+                            <EditWithAuth 
+                                handleFormSubmit={this.handleAddSectionSubmit}
+                                title={title}
+                                onButtonClick={this.handleBeginEditClick}/> : 
+                            <EditWithoutAuth title={title}/>}
+                        </section>
+                    )
+                }
+            }
+            </AuthUserContext.Consumer> 
         )
     }
 
@@ -99,12 +114,6 @@ class StoryContainer extends Component {
         updatedSectionsToRender.splice(section.depth)
         this.setState({sectionsToRender: updatedSectionsToRender, currentSection: section._id})
     }
-
-    // handleForkButtonClick(event) {
-    //     const index = 1 + Number(event.target.value)
-    //     const newSectionArray = [...this.state.storySections].splice(0, index)
-    //     this.setState({storySections: newSectionArray})
-    // }
 
     handleBeginEditClick(event) {
         this.setState({edit: true})
