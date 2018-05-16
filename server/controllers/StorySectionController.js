@@ -46,15 +46,23 @@ storySectionRouter.post('/', function (req, res) {
     const newStorySection = new StorySection(req.body)
     newStorySection.save(function (err, storySection) {
         if (err) {
-            console.error(err);
-            res.status(500);
-            res.send();
-            return;
-        };
-        res.status(201);
-        res.json(storySection);
-    });
-});
+            console.error(err)
+            res.status(500)
+            res.send()
+            return
+        }
+        storySection.populate('user', 'userName').execPopulate()
+        .then(storySection => {
+            res.status(201)
+            res.json(storySection)
+        })
+        .catch(err => {
+            console.error(err)
+            res.status(500)
+            res.send()
+        })
+    })
+})
 
 storySectionRouter.delete('/', function (req, res) {
     StorySection.deleteMany(function (err) {

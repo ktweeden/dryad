@@ -90,10 +90,10 @@ class StoryContainer extends Component {
             }
             const addSectionRequest = new Request('http://localhost:3001/story_section')
             addSectionRequest.post(newSection, (section) => {
-                const updatedSectionsToRender = [...this.state.sectionsToRender, newSection]
+                const updatedSectionsToRender = [...this.state.sectionsToRender, section]
                 const updatedStoryTree = { ...this.state.storySections }
-                updatedStoryTree[newSection._id] = []
-                updatedStoryTree[newSection.previousSection].push(newSection)
+                updatedStoryTree[section._id] = []
+                updatedStoryTree[section.previousSection].push(section)
                 this.setState({
                     storySections: updatedStoryTree,
                     sectionsToRender: updatedSectionsToRender
