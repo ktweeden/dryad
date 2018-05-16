@@ -6,7 +6,7 @@ const EditWithAuth = function (props) {
   return (
     props.edit ?
       <AddSectionForm handleFormSubmit={props.handleFormSubmit} /> :
-      <p className="start-editing">Don't like the sound of the previews?
+      <p className="start-editing">Don't like the sound of the previews?&nbsp;
         <Button buttonText={`Add to ${props.title}`} onButtonClick={props.onButtonClick} />
       </p>
   )

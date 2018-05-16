@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Request from '../helpers/request.js'
 import StorySection from './StorySection.jsx'
 import withAuthentication from '../withAuthentication.jsx'
+import './AccountPage.css'
 
 class AccountPage extends Component {
     constructor(props) {
