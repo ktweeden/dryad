@@ -11,9 +11,7 @@ const withAuthentication = (Component) => {
             super(props)
 
             this.state = {
-                authUser: null,
-                user: '',
-                username: ''
+                authUser: null
             }
         }
 
@@ -22,18 +20,13 @@ const withAuthentication = (Component) => {
                 authUser
                     ? this.setState({ authUser })
                     : this.setState({ authUser: null })
-                const userRequest = new Request(`http://localhost:3001/user/${authUser.uid}`)
-                userRequest.get(user => {
-                    this.setState({user: user._id})
-                    this.setState({username: user.userName})
-                })
             })
         }
 
         render() {
             return (
                 <AuthUserContext.Provider value={this.state.authUser}>
-                    <Component />
+                    <Component authUser={this.state.authUser}/>
                 </AuthUserContext.Provider>
             )
         }

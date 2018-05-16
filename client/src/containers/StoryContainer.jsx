@@ -50,6 +50,8 @@ class StoryContainer extends Component {
             <AuthUserContext.Consumer> 
                 {
                 authuser => {
+                    console.log(authuser);
+                    
                     return (
                         <section className="story-container">
                             <StoryTitle title={title} />
@@ -64,7 +66,8 @@ class StoryContainer extends Component {
                             <EditWithAuth 
                                 handleFormSubmit={this.handleAddSectionSubmit}
                                 title={title}
-                                onButtonClick={this.handleBeginEditClick}/> : 
+                                onButtonClick={this.handleBeginEditClick}
+                                edit={this.state.edit}/> : 
                             <EditWithoutAuth title={title}/>}
                         </section>
                     )
@@ -90,21 +93,25 @@ class StoryContainer extends Component {
 
     handleAddSectionSubmit(storyText) {
         const previousSectionId = this.state.currentSection
-        const newSection = {
-            story: this.state.storyId,
-            previousSection: previousSectionId,
-            depth: this.state.storySections.length,
-            text: storyText
-        }
-        const addSectionRequest = new Request('http://localhost:3001/story_section')
-        addSectionRequest.post(newSection, (section) => {
-            const updatedSectionsToRender = [...this.state.sectionsToRender, newSection]
-            const updatedStoryTree = {...this.state.storySections}
-            updatedStoryTree[newSection._id] = []
-            updatedStoryTree[newSection.previousSection].push(newSection)
-            this.setState({ 
-                storySections: updatedStoryTree, 
-                sectionsToRender: updatedSectionsToRender
+        const getUserId = new Request(`http://localhost:3001/user/${this.props.authUser.uid}`)
+        getUserId.get(user => {
+            const newSection = {
+                story: this.state.storyId,
+                previousSection: previousSectionId,
+                depth: (this.state.sectionsToRender.length +1),
+                text: storyText,
+                user: user._id
+            }
+            const addSectionRequest = new Request('http://localhost:3001/story_section')
+            addSectionRequest.post(newSection, (section) => {
+                const updatedSectionsToRender = [...this.state.sectionsToRender, newSection]
+                const updatedStoryTree = { ...this.state.storySections }
+                updatedStoryTree[newSection._id] = []
+                updatedStoryTree[newSection.previousSection].push(newSection)
+                this.setState({
+                    storySections: updatedStoryTree,
+                    sectionsToRender: updatedSectionsToRender
+                })
             })
         })
     }
@@ -115,7 +122,9 @@ class StoryContainer extends Component {
         this.setState({sectionsToRender: updatedSectionsToRender, currentSection: section._id})
     }
 
-    handleBeginEditClick(event) {
+    handleBeginEditClick() {
+        console.log('begin edit clicked');
+        
         this.setState({edit: true})
     }
 

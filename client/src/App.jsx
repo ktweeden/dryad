@@ -15,11 +15,11 @@ const App = function(props) {
     return (
       <Router>
         <React.Fragment>
-          <NavBar />
-          <Route exact path={routes.HOME} component={() => < StoryContainer />} />
+          <NavBar/>
+          <Route exact path={routes.HOME} component={() => < StoryContainer authUser={props.authUser}/>} />
           <Route exact path={routes.SIGN_IN} component={() => < SignInPage />} />
           <Route exact path={routes.SIGN_UP} component={() => < SignUpPage />} />
-          <Route exact path={routes.ACCOUNT} component={() => < AccountPage />} />
+          <Route exact path={routes.ACCOUNT} component={() => < AccountPage authUser={props.authUser}/>} />
         </React.Fragment>
       </Router>
     )

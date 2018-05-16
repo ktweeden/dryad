@@ -5,7 +5,7 @@ import './SectionActionBar.css'
 const SectionActionBar = function(props) {
     return (
         <div className="action-bar">
-            <Button value={props.index} onButtonClick={props.onForkClick} buttonText="Fork"/>
+            <p>@{props.username}</p>
         </div>
     )
 }

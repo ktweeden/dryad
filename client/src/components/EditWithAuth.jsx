@@ -4,11 +4,10 @@ import AddSectionForm from './AddSectionForm.jsx'
 
 const EditWithAuth = function (props) {
   return (
-    this.state.edit ?
-      <AddSectionForm handleFormSubmit={props.handleAddSectionSubmit} /> :
+    props.edit ?
+      <AddSectionForm handleFormSubmit={props.handleFormSubmit} /> :
       <p className="start-editing">Don't like the sound of the previews?
-                <Button buttonText={`Add to ${props.title}`}
-          onButtonClick={props.handleBeginEditClick} />
+        <Button buttonText={`Add to ${props.title}`} onButtonClick={props.onButtonClick} />
       </p>
   )
 }

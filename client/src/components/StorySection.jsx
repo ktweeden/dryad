@@ -14,7 +14,7 @@ class StorySection extends Component {
         return (
             <div className="section-container" onClick={this.onSectionClick}>
                 <p>{this.props.section.text}</p>
-                {/* {props.handleForkButtonClick && <SectionActionBar onForkClick={this.props.handleForkButtonClick} index={props.section.depth}/>} */}
+                {this.props.section.depth > 0 && <SectionActionBar username={this.props.section.user.userName}/>}
             </div>
         )
     }
