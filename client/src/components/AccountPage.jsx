@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import Request from '../helpers/request.js'
-import AuthUserContext from '../components/AuthUserContext.jsx'
 import StorySection from './StorySection.jsx'
 
 class AccountPage extends Component {

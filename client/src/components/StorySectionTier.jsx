@@ -1,5 +1,4 @@
 import React from 'react'
-import StorySection from './StorySection.jsx'
 import StorySectionPreview from './StorySectionPreview.jsx'
 import './StorySectionTier.css'
 

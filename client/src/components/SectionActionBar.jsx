@@ -1,5 +1,4 @@
 import React from 'react'
-import Button from './Button.jsx'
 import './SectionActionBar.css'
 
 const SectionActionBar = function(props) {

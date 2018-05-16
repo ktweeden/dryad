@@ -2,13 +2,9 @@ import React, {Component} from 'react'
 import Request from '../helpers/request.js'
 import StoryTitle from '../components/StoryTitle.jsx'
 import StorySection from '../components/StorySection.jsx'
-import AddSectionForm from '../components/AddSectionForm.jsx'
-import Button from '../components/Button.jsx'
 import StorySectionTier from '../components/StorySectionTier.jsx'
 import './StoryContainer.css'
 import AuthUserContext from '../components/AuthUserContext.jsx'
-import { Link } from 'react-router-dom'
-import * as routes from '../constants/routes'
 import EditWithAuth from '../components/EditWithAuth.jsx'
 import EditWithoutAuth from '../components/EditWithoutAuth.jsx'
 
@@ -117,7 +113,7 @@ class StoryContainer extends Component {
     }
 
     handleSectionClick(section) {
-        const updatedSectionsToRender = [... this.state.sectionsToRender]
+        const updatedSectionsToRender = [...this.state.sectionsToRender]
         updatedSectionsToRender.splice(section.depth)
         this.setState({sectionsToRender: updatedSectionsToRender, currentSection: section._id})
     }

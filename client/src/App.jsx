@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import StoryContainer from './containers/StoryContainer.jsx';
 import NavBar from './components/NavBar.jsx'

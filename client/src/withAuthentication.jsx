@@ -1,5 +1,4 @@
 import React from 'react'
-import Request from './helpers/request.js'
 
 import AuthUserContext from './components/AuthUserContext';
 import { firebase } from './firebase';
