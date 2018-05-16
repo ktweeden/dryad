@@ -52,7 +52,7 @@ class StoryContainer extends Component {
                 handlePreviewClick={this.handlePreviewClick}
                 updateCurrentSection={this.updateCurrentSection}
                 />}
-                {this.props.authuser ? 
+                {this.props.authUser ? 
                 <EditWithAuth 
                     handleFormSubmit={this.handleAddSectionSubmit}
                     title={title}
